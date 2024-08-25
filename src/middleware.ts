@@ -6,7 +6,6 @@ export async function middleware(request: NextRequest) {
 	const supabase = createClient();
 	const user = await supabase.auth.getUser();
 	const { pathname } = request.nextUrl;
-	console.log('here');
 
 	if (pathname === '/login' || pathname === '/sign-up') {
 		return await updateSession(request);

@@ -10,7 +10,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { LoginForm, loginFormSchema } from '@/lib/schemas/auth';
+import { login } from '@/utils/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function LoginPage() {
@@ -21,12 +23,19 @@ export default function LoginPage() {
 			password: '',
 		},
 	});
-	async function handleSubmit() {}
+	const [loading, startTransition] = useTransition();
+
+	function handleLogin(values: LoginForm) {
+		startTransition(async () => {
+			await login(values);
+		});
+	}
+
 	return (
 		<main className='flex w-full items-center justify-center h-screen'>
 			<Form {...loginForm}>
 				<form
-					onSubmit={loginForm.handleSubmit(handleSubmit)}
+					onSubmit={loginForm.handleSubmit(handleLogin)}
 					className='space-y-4 w-72 flex flex-col'
 				>
 					<FormField
@@ -53,7 +62,12 @@ export default function LoginPage() {
 							</FormItem>
 						)}
 					/>
-					<Button type='submit' className='self-end' size='sm'>
+					<Button
+						disabled={loading}
+						type='submit'
+						className='self-end'
+						size='sm'
+					>
 						login
 					</Button>
 				</form>
