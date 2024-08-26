@@ -9,6 +9,7 @@ import {
 	FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import Logo from '@/components/ui/logo';
 import { LoginForm, loginFormSchema } from '@/lib/schemas/auth';
 import { login } from '@/utils/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,12 +33,18 @@ export default function LoginPage() {
 	}
 
 	return (
-		<main className='flex w-full items-center justify-center h-screen'>
+		<main className='h-screen w-screen overflow-hidden justify-center items-center flex flex-col'>
 			<Form {...loginForm}>
 				<form
 					onSubmit={loginForm.handleSubmit(handleLogin)}
-					className='space-y-4 w-72 flex flex-col'
+					className='space-y-4 w-80 flex flex-col shadow-lg rounded-lg'
 				>
+					<header className='flex flex-col mb-6 items-start'>
+						<Logo />
+						<h2 className='text-lg font-semibold'>
+							Dare to Listen. Enter the Vortex.
+						</h2>
+					</header>
 					<FormField
 						control={loginForm.control}
 						name='email'
@@ -65,7 +72,8 @@ export default function LoginPage() {
 					<Button
 						disabled={loading}
 						type='submit'
-						className='self-end'
+						className='self-end w-full mt-8'
+						variant='accent'
 						size='sm'
 					>
 						login
