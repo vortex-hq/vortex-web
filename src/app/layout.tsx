@@ -1,3 +1,4 @@
+import QueryProvider from '@/components/search/query-provider';
 import Sidebar from '@/components/sidebar';
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
@@ -20,8 +21,10 @@ export default function RootLayout({
       <body
         className={`${manrope.className} dark flex overflow-hidden bg-popover h-screen w-screen p-2 gap-2`}
       >
-        <Sidebar />
-        {children}
+        <QueryProvider>
+          <Sidebar />
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );
