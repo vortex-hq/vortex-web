@@ -1,4 +1,4 @@
-import Logo from '@/components/ui/logo';
+import Logo from '@/components/logo';
 import { ReactNode } from 'react';
 
 interface HeaderProps {
@@ -26,4 +26,3 @@ function Wrapper({ children }: WrapperProps) {
 }
 
 export { Header, Wrapper };
-

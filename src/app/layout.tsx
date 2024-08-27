@@ -1,3 +1,4 @@
+import Sidebar from '@/components/sidebar';
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
 import './globals.css';
@@ -5,18 +6,23 @@ import './globals.css';
 const manrope = Manrope({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'Vortex',
-	description: 'Look closer, listen to the Vortex.',
+  title: 'Vortex',
+  description: 'Look closer, listen to the Vortex.',
 };
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<html lang='en'>
-			<body className={`${manrope.className} dark`}>{children}</body>
-		</html>
-	);
+  return (
+    <html lang='en'>
+      <body
+        className={`${manrope.className} dark flex overflow-hidden bg-popover h-screen w-screen p-2 gap-2`}
+      >
+        <Sidebar />
+        {children}
+      </body>
+    </html>
+  );
 }
