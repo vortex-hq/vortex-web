@@ -13,23 +13,15 @@ export async function signIn(values: SignUpForm) {
 	const fields = signUpFormSchema.safeParse(values);
 
 	if (!fields.success) return;
-	const { email, password, username, name } = fields.data;
+	const { email, password, name } = fields.data;
 
 	const supabase = createClient();
-	const { data } = await supabase
-		.from('profiles')
-		.select('id')
-		.eq('username', username)
-		.single();
-
-	if (data) return;
 
 	const { error } = await supabase.auth.signUp({
 		email,
 		password,
 		options: {
 			data: {
-				username,
 				display_name: name,
 			},
 		},

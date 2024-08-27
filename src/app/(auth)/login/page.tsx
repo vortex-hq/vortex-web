@@ -6,15 +6,16 @@ import {
 	FormControl,
 	FormField,
 	FormItem,
+	FormLabel,
 	FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import Logo from '@/components/ui/logo';
 import { LoginForm, loginFormSchema } from '@/lib/schemas/auth';
 import { login } from '@/utils/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
+import { Header, Wrapper } from '../_components/form';
 
 export default function LoginPage() {
 	const loginForm = useForm<LoginForm>({
@@ -34,52 +35,53 @@ export default function LoginPage() {
 
 	return (
 		<main className='h-screen w-screen overflow-hidden justify-center items-center flex flex-col'>
-			<Form {...loginForm}>
-				<form
-					onSubmit={loginForm.handleSubmit(handleLogin)}
-					className='space-y-4 w-80 flex flex-col shadow-lg rounded-lg'
-				>
-					<header className='flex flex-col mb-6 items-start'>
-						<Logo />
-						<h2 className='text-lg font-semibold'>
-							Dare to Listen. Enter the Vortex.
-						</h2>
-					</header>
-					<FormField
-						control={loginForm.control}
-						name='email'
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input placeholder='E-mail' {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={loginForm.control}
-						name='password'
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input type='password' placeholder='Password' {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+			<Wrapper>
+				<Form {...loginForm}>
+					<form
+						onSubmit={loginForm.handleSubmit(handleLogin)}
+						className='space-y-3'
+						id='login-form'
+					>
+						<Header text='Dare to Listen. Enter the Vortex.' />
+						<FormField
+							control={loginForm.control}
+							name='email'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>E-mail</FormLabel>
+									<FormControl>
+										<Input placeholder='E-mail' {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={loginForm.control}
+							name='password'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Password</FormLabel>
+									<FormControl>
+										<Input type='password' placeholder='••••••' {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</form>
 					<Button
 						disabled={loading}
 						type='submit'
-						className='self-end w-full mt-8'
+						className='w-full mt-4'
 						variant='accent'
+						form='login-form'
 						size='sm'
 					>
-						login
+						Log in
 					</Button>
-				</form>
-			</Form>
+				</Form>
+			</Wrapper>
 		</main>
 	);
 }

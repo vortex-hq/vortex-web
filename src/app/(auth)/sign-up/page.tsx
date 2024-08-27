@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
+	FormLabel,
 	FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -15,6 +15,7 @@ import { signIn } from '@/utils/supabase/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
+import { Header, Wrapper } from '../_components/form';
 
 export default function SignUpPage() {
 	const signUpForm = useForm<SignUpForm>({
@@ -22,7 +23,6 @@ export default function SignUpPage() {
 		defaultValues: {
 			email: '',
 			password: '',
-			username: '',
 			name: '',
 		},
 	});
@@ -36,78 +36,66 @@ export default function SignUpPage() {
 
 	return (
 		<main className='flex w-full items-center justify-center h-screen'>
-			<Form {...signUpForm}>
-				<form
-					id='sign-up-form'
-					onSubmit={signUpForm.handleSubmit(handleSignIn)}
-					className='space-y-4 w-72 flex flex-col'
-				>
-					<FormField
-						control={signUpForm.control}
-						name='email'
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input placeholder='E-mail' {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={signUpForm.control}
-						name='username'
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input placeholder='Username' {...field} />
-								</FormControl>
-								<FormDescription>
-									This is your account&apos;s unique indentifier.
-								</FormDescription>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={signUpForm.control}
-						name='name'
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input placeholder='Name' {...field} />
-								</FormControl>
-								<FormDescription>
-									This is your public display name.
-								</FormDescription>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={signUpForm.control}
-						name='password'
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Input type='password' placeholder='Password' {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<Button
-						form='sign-up-form'
-						disabled={loading}
-						// onClick={handleClick}
-						type='submit'
-						className='self-end'
-						size='sm'
+			<Wrapper>
+				<Form {...signUpForm}>
+					<form
+						id='sign-up-form'
+						onSubmit={signUpForm.handleSubmit(handleSignIn)}
+						className='space-y-3'
 					>
-						sign up
-					</Button>
-				</form>
-			</Form>
+						<Header text='Dive Deep, the Vortex Awaits.' />
+						<FormField
+							control={signUpForm.control}
+							name='name'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Name</FormLabel>
+									<FormControl>
+										<Input placeholder='Enter your name' {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={signUpForm.control}
+							name='email'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>E-mail</FormLabel>
+									<FormControl>
+										<Input placeholder='Enter your e-mail' {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={signUpForm.control}
+							name='password'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Password</FormLabel>
+									<FormControl>
+										<Input type='password' placeholder='••••••' {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<Button
+							form='sign-up-form'
+							disabled={loading}
+							type='submit'
+							className='w-full mt-4'
+							size='sm'
+							variant='accent'
+						>
+							Sign Up
+						</Button>
+					</form>
+				</Form>
+			</Wrapper>
 		</main>
 	);
 }

@@ -14,8 +14,7 @@ export const signUpFormSchema = z.object({
 	password: z
 		.string()
 		.min(6, { message: 'Password must be at least 6 characters long.' }),
-	username: z.string().min(6, 'Username must be at least 6 characters long.'),
-	name: z.string().min(3, 'Name must be at least 3 characters long.'),
+	name: z.string().min(4, 'Name must be at least 4 characters long.'),
 });
 
 export type SignUpForm = z.infer<typeof signUpFormSchema>;
