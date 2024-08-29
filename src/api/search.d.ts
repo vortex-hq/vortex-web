@@ -1,7 +1,9 @@
+type SearchType = 'song' | 'album' | 'artist';
+
 type SongItem = {
   id: string;
   name: string;
-  type: string;
+  type: SearchType;
   year?: string;
   release_date?: string;
   duration: number;
@@ -13,13 +15,14 @@ type SongItem = {
   lyricsId?: string;
   copyright?: string;
   album: Album;
-  artists: Artists[];
+  image: Image[];
+  artists: Artists;
   downloadUrl: DownloadUrl;
 };
 
 type Image = {
-  quality?: string;
-  url?: string;
+  quality: string;
+  url: string;
 };
 
 type DownloadUrl = {
@@ -33,10 +36,10 @@ type Album = {
 };
 
 type Artist = {
-  id: String;
-  name: String;
+  id: string;
+  name: string;
   image: Image[];
-  url: String;
+  url: string;
 };
 
 type Artists = {
@@ -44,12 +47,14 @@ type Artists = {
 };
 
 type SongResponse = {
-  success: boolean;
-  data: {
-    total: number;
-    start: number;
-    results: SongItem[];
-  };
+  total: number;
+  start: number;
+  results: SongItem[];
 };
 
-export type Response = SongResponse;
+export type Response = {
+  success: boolean;
+  data: ResponseType;
+};
+
+export type ResponseType = SongResponse;

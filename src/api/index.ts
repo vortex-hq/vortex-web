@@ -1,5 +1,4 @@
 import { Profile } from '@/api/profile';
-import { Response, SongResponse } from './search';
 
 abstract class ApiRequest<T> {
   protected readonly url: string = 'http://127.0.0.1:8000';
@@ -32,25 +31,19 @@ abstract class ApiRequest<T> {
     return response.json();
   }
 
-  protected async search(query: string, type: string): Promise<T> {
-    const response = await fetch(`${this.url}/search?q=${query}&type=${type}`, {
-      method: 'GET',
-      headers: this.buildHeaders(false),
-      next: { tags: ['search'] },
-      cache: 'force-cache',
-    });
-    return response.json();
-  }
+  // protected async search(query: string, type: string): Promise<T> {
+  //   const response = await fetch(`${this.url}/search?q=${query}&type=${type}`, {
+  //     method: 'GET',
+  //     headers: this.buildHeaders(false),
+  //     next: { tags: ['search'] },
+  //     cache: 'force-cache',
+  //   });
+  //   return response.json();
+  // }
 }
 
 export class UserRequest extends ApiRequest<Profile> {
   async getProfile(): Promise<Profile> {
     return this.get('/users/me', 'user-profile');
-  }
-}
-
-export class SearchRequest extends ApiRequest<Response> {
-  async searchSong(query: string, type: string): Promise<SongResponse> {
-    return this.search(query, type);
   }
 }
