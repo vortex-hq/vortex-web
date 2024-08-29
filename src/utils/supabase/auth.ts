@@ -55,8 +55,7 @@ export async function login(values: LoginForm) {
   }
 }
 
-export const currentUser = cache(async () => {
-  console.log('called');
+export const session = cache(async () => {
   const supabase = createClient();
   const {
     data: { session },
